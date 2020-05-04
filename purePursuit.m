@@ -1,8 +1,7 @@
-function [w_radps] = purePursuit(currentPose, lineSegBeginPoint, lineSegEndPoint, v_mps)
+function [w_radps, gp] = purePursuit(currentPose, lineSegBeginPoint, lineSegEndPoint, v_mps)
 %PUREPURSUIT Summary of this function goes here
 %   Detailed explanation goes here
-
-    lookaheadDist_m = 0.25;
+    lookaheadDist_m = 1;
     
     % Compute cross track error
     err = getCrossTrackError(lineSegBeginPoint, lineSegEndPoint, currentPose);
@@ -13,7 +12,8 @@ function [w_radps] = purePursuit(currentPose, lineSegBeginPoint, lineSegEndPoint
     % Compute angle between vector from robot to goal point and current
     % segment to goalpoint
     vec2goal = gp - currentPose(1:2);
-    alpha = wrapToPi(atan2(vec2goal(2) - currentPose(3), vec2goal(1)));
+    alpha = (atan2(vec2goal(2), vec2goal(1)) - currentPose(3));
+    rad2deg(alpha)
     
     % Compute curavature
     kappa = 2*sin(alpha)/lookaheadDist_m;
@@ -34,6 +34,7 @@ function [point] = getGoalPoint(currentPose, lineSegBeginPoint, lineSegEndPoint,
         c = dot(f,f) - r*r;
         discriminant = b*b - 4*a*c;
         
+        point = [];
         point1 = [];
         point2 = [];
         if (discriminant < 0)
