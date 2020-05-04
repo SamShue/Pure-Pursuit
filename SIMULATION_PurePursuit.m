@@ -3,17 +3,18 @@ clear all;
 close all;
 
 % Robot parameters
-robotPose = [0,0,0];
+robotPose = [0.2,0.2,0];
 tireDiameter_m = 0.25;
 trackWidth_m = 0.5;
 model = 'icr'; % or 'linear'
+v_mps = 0.25;
 
 % time between iterations in seconds
 dt_s = 0.01;
 lookaheaddist_m = 0.25;
-goalPoints = [0,0; 0,2; 2,2];
+goalPoints = [0,0; 2,0; 2,2];
 
-%while(1)
+while(1)
 %     % Get left and right wheel velocities in rad/s
 %     Vr_radps = u(1,ii); Vl_radps = u(2,ii);
 %     % Convert rad/s to m/s based on tire diameter
@@ -22,7 +23,7 @@ goalPoints = [0,0; 0,2; 2,2];
 %     % Get robot frame linear and rotational velocities
 %     v_mps = (Vr_mps + Vl_mps) / 2.0;
 %     w_radps = (Vr_mps - Vl_mps) / trackWidth_m;
-    purePursuit([0.2, 0.2, 0], goalPoints(1,:), goalPoints(2,:), 0.5);
+    w_radps = purePursuit(robotPose, goalPoints(1,:), goalPoints(2,:), 0.5);
 
 
     % Update robot pose using kinematic model
@@ -40,4 +41,4 @@ goalPoints = [0,0; 0,2; 2,2];
     pause(0.001);
     % End render environment
     %----------------------------------------------------------------------
-%end
+end
