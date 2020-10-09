@@ -1,6 +1,14 @@
 # Pure-Pursuit
 A short project simulating pure-pursuit for differential drive robot motion control.
 
+## How to Run
+Clone repo and open git directory in MATLAB. Open SIMULATION_PurePursuit and hit run. This create a simple simulation using a differential drive robot and several pure-pursuit goal points. The robot will use the pure pursuit algorithm to guide it until within tolerance of each goal point before moving onto the next.
+
+## Robot Motion Controllers
+The pure pursuit algorithm is an example of a robot motion controller. 
+
+
+
 - Geometric path tracking
     Any controller that tracks a reference path using only the geometry of the vehicle kinematics and the reference path. A geometric path tracking controller is a type of lateral controller that ignores dynamic forces on the vehicles and assumes the no-slip conditions holds on the wheels.
     https://www.coursera.org/lecture/intro-self-driving-cars/lesson-2-geometric-lateral-control-pure-pursuit-44N7x

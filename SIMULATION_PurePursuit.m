@@ -7,12 +7,12 @@ robotPose = [0,0.2,0];
 tireDiameter_m = 0.25;
 trackWidth_m = 0.5;
 model = 'icr'; % or 'linear'
-v_mps = 0.25;
+v_mps = 0.5;
 
 % time between iterations in seconds
-dt_s = 0.01;
+dt_s = 0.1;
 lookaheaddist_m = 0.25;
-goalPoints = [0,0; 2,0; 2,2];
+goalPoints = [0,0; 2,0; 2,2; 1,1; 2,0];
 
 ii = 1;
 lastGoal = robotPose(1:2);
