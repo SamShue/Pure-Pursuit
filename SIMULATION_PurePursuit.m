@@ -19,7 +19,7 @@ lastGoal = robotPose(1:2);
 currentGoal = goalPoints(ii, :);
 atFinalGoal = 0;
 while(~atFinalGoal)
-    [w_radps, gp] = purePursuit(robotPose, lastGoal, currentGoal, 0.5);
+    [w_radps, gp] = purePursuit(robotPose, lastGoal, currentGoal, v_mps);
 
     % Update robot pose using kinematic model
     robotPose = differentialDriveKinematics(robotPose, v_mps, w_radps, dt_s, model);
