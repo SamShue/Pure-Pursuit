@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="640" height="300" fill="#ffffff"/>
+
+  <!-- Path segment -->
+  <line x1="60" y1="220" x2="560" y2="90" stroke="#444" stroke-width="3"/>
+  <circle cx="60" cy="220" r="5" fill="#444"/>
+  <text x="40" y="246" font-size="14" fill="#444">s1</text>
+  <circle cx="560" cy="90" r="5" fill="#444"/>
+  <text x="566" y="86" font-size="14" fill="#444">s2</text>
+
+  <!-- Robot position off the line -->
+  <circle cx="330" cy="70" r="7" fill="#2b6cb0"/>
+  <text x="300" y="52" font-size="14" font-weight="bold" fill="#1a365d">Robot pose</text>
+
+  <!-- Projected point on segment -->
+  <circle cx="355" cy="153" r="6" fill="#c0392b"/>
+  <text x="362" y="150" font-size="13" fill="#8a2c20">projected point p</text>
+
+  <!-- Perpendicular dashed line (cross track error) -->
+  <line x1="330" y1="70" x2="355" y2="153" stroke="#17824e" stroke-width="2.5" stroke-dasharray="5 4"/>
+  <text x="300" y="115" font-size="14" fill="#17824e">cross-track error</text>
+
+  <text x="20" y="28" font-size="18" font-weight="bold" fill="#1a1a1a">Cross-track error: orthogonal projection onto path segment</text>
+</svg>

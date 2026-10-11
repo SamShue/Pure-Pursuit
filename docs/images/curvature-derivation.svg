@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="640" height="420" fill="#ffffff"/>
+
+  <!-- ICC -->
+  <circle cx="420" cy="210" r="5" fill="#333"/>
+  <text x="428" y="205" font-size="14" fill="#333">ICC</text>
+
+  <!-- Robot position -->
+  <circle cx="160" cy="330" r="7" fill="#2b6cb0"/>
+  <text x="120" y="356" font-size="14" font-weight="bold" fill="#1a365d">Robot (x, y, &#952;)</text>
+
+  <!-- Goal point -->
+  <circle cx="300" cy="90" r="7" fill="#c0392b"/>
+  <text x="308" y="86" font-size="14" font-weight="bold" fill="#8a2c20">Goal point</text>
+
+  <!-- Radii from ICC -->
+  <line x1="420" y1="210" x2="160" y2="330" stroke="#333" stroke-width="2"/>
+  <line x1="420" y1="210" x2="300" y2="90" stroke="#333" stroke-width="2"/>
+  <text x="255" y="280" font-size="15" fill="#333">R</text>
+  <text x="378" y="140" font-size="15" fill="#333">R</text>
+
+  <!-- Chord (lookahead distance L) between robot and goal -->
+  <line x1="160" y1="330" x2="300" y2="90" stroke="#17824e" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="198" y="222" font-size="15" fill="#17824e">chord length = L (lookahead distance)</text>
+
+  <!-- Heading arrow at robot, tangent to circle (perpendicular to radius) -->
+  <line x1="160" y1="330" x2="222" y2="300" stroke="#2b6cb0" stroke-width="3"/>
+  <text x="70" y="300" font-size="13" fill="#2b6cb0">heading (tangent to arc)</text>
+
+  <!-- Alpha angle at robot between heading and chord -->
+  <path d="M 190 315 A 35 35 0 0 1 198 294" fill="none" stroke="#b7791f" stroke-width="2"/>
+  <text x="196" y="305" font-size="14" fill="#b7791f">&#945;</text>
+
+  <!-- Apex angle at ICC = 2*alpha -->
+  <path d="M 390 220 A 45 45 0 0 0 384 175" fill="none" stroke="#b7791f" stroke-width="2"/>
+  <text x="355" y="205" font-size="14" fill="#b7791f">2&#945;</text>
+
+  <text x="20" y="28" font-size="18" font-weight="bold" fill="#1a1a1a">Isosceles triangle used to derive &#954; = 2sin(&#945;) / L</text>
+  <text x="20" y="400" font-size="13" fill="#444">Law of sines on the isosceles triangle (ICC, robot, goal) gives L / sin(2&#945;) = R / sin(90&#176;-&#945;), which simplifies to R = L / (2sin&#945;), i.e. &#954; = 1/R = 2sin(&#945;)/L.</text>
+</svg>
