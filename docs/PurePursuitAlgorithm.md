@@ -43,6 +43,10 @@ Because the goal point is recomputed every step as the robot moves, the robot co
 | ![Step 5: robot moves forward](images/pure_pursuit_step_05.png) | ![Step 6: start over at new pose](images/pure_pursuit_step_06.png) |
 | **5. Robot moves forward.** The robot advances a short arc length along the commanded curvature. | **6. Start over at new pose.** From the new pose, a new lookahead circle and goal point are found, and the cycle repeats. |
 
+Repeating this cycle every control step produces smooth motion along the whole path:
+
+![Pure pursuit tracking run: the full lookahead/curvature cycle repeated along a path](images/pure_pursuit_tracking_run.gif)
+
 ## 3. Finding the goal point
 
 The reference path in this repo is represented as a sequence of straight line segments between goal points (see `goalPoints` in [`SIMULATION_PurePursuit.m`](../SIMULATION_PurePursuit.m)). For the current segment, the goal point is the intersection between:
@@ -63,6 +67,11 @@ discriminant = b*b - 4*a*c;
 ```
 
 If two valid intersections exist, the one closer to the segment's end point is chosen so the robot keeps making forward progress along the path. If the robot is already within `L` of the segment's end point, that end point is used directly as the goal point instead, so the robot converges onto the final target rather than circling around it.
+
+| | |
+|---|---|
+| ![Advancing to the next segment: robot reaches the waypoint tolerance](images/pure_pursuit_segment_transition_01.png) | ![Continuing pure pursuit on the new segment](images/pure_pursuit_segment_transition_02.png) |
+| **Reaching the waypoint.** Once the robot is within the goal tolerance of the current segment's end point, the active segment advances to the next pair of waypoints. | **Continuing on the new segment.** The lookahead search repeats against the new segment, and pure pursuit proceeds exactly as before. |
 
 ## 4. Deriving the curvature control law
 
@@ -138,6 +147,11 @@ The lookahead distance `L` is the single tuning parameter of pure pursuit, and i
 
 In practice `L` is often scaled with speed (e.g. `L = k * v + L_min`) so that the robot looks further ahead at higher speed, which helps keep the response stable across a range of speeds. The simulation in this repo uses a fixed `lookaheadDist_m` for simplicity.
 
+| | |
+|---|---|
+| ![Longer lookahead distance: smooth but slower tracking](images/pure_pursuit_lookahead_long.gif) | ![Shorter lookahead distance: faster but prone to oscillation](images/pure_pursuit_lookahead_short.gif) |
+| **Longer `L`.** The robot tracks the goal point more slowly, but smoothly. | **Shorter `L`.** The robot tracks the goal point more quickly, but a short enough lookahead distance can cause oscillation and overshoot. |
+
 ## 8. Algorithm summary
 
 ```text
@@ -161,3 +175,5 @@ for each control step:
 ## Image credits
 
 The step-by-step walkthrough diagrams (`images/pure_pursuit_step_01.png` – `pure_pursuit_step_06.png`) were generated with matplotlib by [SamShue/UNCC-ECGR4161-Intro-to-Robotics](https://github.com/SamShue/UNCC-ECGR4161-Intro-to-Robotics) (`diagram_scripts/local_planner/pure_pursuit/pure_pursuit_step_by_step.py`), reused here with permission.
+
+The segment-transition diagrams and lookahead-distance/tracking-run animations (`pure_pursuit_segment_transition_01.png`, `pure_pursuit_segment_transition_02.png`, `pure_pursuit_tracking_run.gif`, `pure_pursuit_lookahead_long.gif`, `pure_pursuit_lookahead_short.gif`) are from the "Pure Pursuit" section of the *ECGR 4161 - Path Planning* course slide deck, reused here with permission.
