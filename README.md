@@ -2,7 +2,7 @@
 
 A MATLAB demo simulating the **pure pursuit** path-tracking algorithm controlling a 2D differential-drive robot through a series of goal points.
 
-![Pure pursuit overview: lookahead circle, goal point, and curvature arc](docs/images/pure-pursuit-overview.svg)
+![Pure pursuit: lookahead circle, goal point, and curvature circle](docs/images/pure_pursuit_step_04.png)
 
 📖 For a detailed, step-by-step explanation of the algorithm and its derivation, see **[docs/PurePursuitAlgorithm.md](docs/PurePursuitAlgorithm.md)**.
 

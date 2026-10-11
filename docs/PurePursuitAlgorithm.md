@@ -30,9 +30,18 @@ At every control step, pure pursuit performs four steps:
 3. Treat that chord as if it were a chord of a circular arc that is tangent to the robot's current heading. Solve for the radius `R` of that arc — this is the **instantaneous radius of curvature** the robot must drive along to pass through the goal point.
 4. Convert that curvature into a steering/angular velocity command and drive it for one time step, then repeat.
 
-![Pure pursuit overview: lookahead circle, goal point, and curvature arc](images/pure-pursuit-overview.svg)
-
 Because the goal point is recomputed every step as the robot moves, the robot continually re-aims at a point `L` ahead of it, producing a smooth arc that converges onto the path — much like a driver glancing slightly ahead of the car and steering toward that spot rather than fixating on the exact point under the hood.
+
+### Visual walkthrough of one control step
+
+| | |
+|---|---|
+| ![Step 1: starting state](images/pure_pursuit_step_01.png) | ![Step 2: lookahead circle and target](images/pure_pursuit_step_02.png) |
+| **1. Starting state.** The robot has a pose and an active path segment. | **2. Lookahead circle and target.** A circle of radius `L` centered on the robot intersects the path segment at the goal point. |
+| ![Step 3: heading to lookahead point](images/pure_pursuit_step_03.png) | ![Step 4: curvature circle](images/pure_pursuit_step_04.png) |
+| **3. Heading to lookahead point.** The angle `α` is measured between the robot's heading and the bearing to the goal point. | **4. Curvature circle.** `κ = 2 sin(α) / L` defines the instantaneous turning circle (center `C`, radius `R`) that carries the robot through the goal point. |
+| ![Step 5: robot moves forward](images/pure_pursuit_step_05.png) | ![Step 6: start over at new pose](images/pure_pursuit_step_06.png) |
+| **5. Robot moves forward.** The robot advances a short arc length along the commanded curvature. | **6. Start over at new pose.** From the new pose, a new lookahead circle and goal point are found, and the cycle repeats. |
 
 ## 3. Finding the goal point
 
@@ -63,9 +72,7 @@ Once the goal point is known, pure pursuit assumes the robot will follow a circu
 - is tangent to the robot's current heading at that position, and
 - passes through the goal point.
 
-The center of that circle is the **instantaneous center of curvature (ICC)**. Because the robot's position and the goal point both lie on the circle, and the chord between them has length `L`, the triangle formed by the ICC, the robot, and the goal point is **isosceles** (two sides of length `R`).
-
-![Isosceles triangle relating radius R, lookahead distance L, and angle alpha](images/curvature-derivation.svg)
+The center of that circle is the **instantaneous center of curvature (ICC)**, labeled `C` with radius `R` in step 4 of the [visual walkthrough above](#2-the-core-idea). Because the robot's position and the goal point both lie on the circle, and the chord between them has length `L`, the triangle formed by the ICC, the robot, and the goal point is **isosceles** (two sides of length `R`).
 
 The angle between the robot's heading (tangent to the circle) and the chord to the goal point is `α`. By the tangent-chord angle relationship, the angle subtended by the chord at the circle's center is `2α`. Applying the law of sines to the isosceles triangle:
 
@@ -150,3 +157,7 @@ for each control step:
 - [Orthogonal Projection Onto a Line — Wikibooks](https://en.wikibooks.org/wiki/Linear_Algebra/Orthogonal_Projection_Onto_a_Line)
 - [Circle/line-segment intersection algorithm — Stack Overflow](https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm/1084899#1084899)
 - Coulter, R. Craig. *Implementation of the Pure Pursuit Path Tracking Algorithm*. Carnegie Mellon University, Robotics Institute, 1992.
+
+## Image credits
+
+The step-by-step walkthrough diagrams (`images/pure_pursuit_step_01.png` – `pure_pursuit_step_06.png`) were generated with matplotlib by [SamShue/UNCC-ECGR4161-Intro-to-Robotics](https://github.com/SamShue/UNCC-ECGR4161-Intro-to-Robotics) (`diagram_scripts/local_planner/pure_pursuit/pure_pursuit_step_by_step.py`), reused here with permission.
